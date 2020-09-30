@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from entities.validators import validate_store_merchant, validate_items_merchant
-from entities.models import Merchant, Item, Store, Order
+from entities.validators import (validate_store_merchant,
+                                 validate_items_merchant)
+from entities.models import (Merchant, Item, Store, Order)
 
 
 class MerchantSerializer(serializers.ModelSerializer):
@@ -22,6 +23,19 @@ class StoreSerializer(serializers.ModelSerializer):
         fields = ('pk', 'name', 'merchant', 'address', 'lon',
                   'lat', 'active', 'items', 'created_at')
 
+    def validate(self, data):
+        """
+        Perform object level validation for Merchant Integrity during Store
+        Creation.
+
+        validate_items_merchant : Checks if the Items' Merchant is same as
+        Order's Merchant.
+        """
+
+        validate_items_merchant(data)
+
+        return data
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,10 +45,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """
-        Perform object level validation for Merchant Integrity during Order Creation.
+        Perform object level validation for Merchant Integrity during Order
+        Creation.
 
-        validate_store_merchant : Checks if the Store's Merchant is same as Order's Merchant.
-        validate_store_merchant : Checks if the Items' Merchant is same as Order's Merchant.
+        validate_store_merchant : Checks if the Store's Merchant is same as
+        Order's Merchant.
+        validate_items_merchant : Checks if the Items' Merchant is same as
+        Order's Merchant.
         """
 
         validate_store_merchant(data)
