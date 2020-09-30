@@ -9,7 +9,7 @@ from entities.serializers import MerchantSerializer, ItemSerializer, StoreSerial
 
 class MerchantViewSet(viewsets.ModelViewSet):
     """
-    API view to retrieve list of Merchants or create new Merchant
+    API view to perform CRUD operations on Merchant.
     """
     serializer_class = MerchantSerializer
     queryset = Merchant.objects.all()
@@ -17,7 +17,7 @@ class MerchantViewSet(viewsets.ModelViewSet):
 
 class ItemViewSet(viewsets.ModelViewSet):
     """
-    API view to retrieve list of Items or create new Item
+    API view to perform CRUD operations on Item
     """
     serializer_class = ItemSerializer
     queryset = Item.objects.all()
@@ -25,7 +25,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 class StoreViewSet(viewsets.ModelViewSet):
     """
-    API view to retrieve list of Stores or create new Store
+    API view to perform CRUD operations on Store
     """
     serializer_class = StoreSerializer
     queryset = Store.objects.all()
@@ -33,7 +33,7 @@ class StoreViewSet(viewsets.ModelViewSet):
 
 class OrderViewSet(viewsets.ModelViewSet):
     """
-    API view to retrieve list of Orders or create new Order
+    API view to perform CRUD operations on Order
     """
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
