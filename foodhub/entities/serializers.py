@@ -31,7 +31,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """
-        Check that Store belongs to the same Merchant with whom the Order is being placed.
+        Perform object level validation for Merchant Integrity during Order Creation.
+
+        validate_store_merchant : Checks if the Store's Merchant is same as Order's Merchant.
+        validate_store_merchant : Checks if the Items' Merchant is same as Order's Merchant.
         """
 
         validate_store_merchant(data)
