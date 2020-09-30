@@ -14,11 +14,11 @@ def validate_store_merchant(data):
 
 def validate_items_merchant(data):
     """
-    Checks if the Items' Merchant is same as Order's Merchant.
+    Checks if the Items' Merchant is same as Model's Merchant.
     """
-    order_merchant_id = data['merchant'].id
+    model_merchant_id = data['merchant'].id
     item_merchant_ids = [item.merchant.id for item in data['items']]
     for item_merchant_id in item_merchant_ids:
-        if item_merchant_id != order_merchant_id:
+        if item_merchant_id != model_merchant_id:
             raise serializers.ValidationError(
-                {"items": "Item(s) do not belong to the Order's Merchant."})
+                {"items": "Item(s) do not belong to the selected Merchant."})
