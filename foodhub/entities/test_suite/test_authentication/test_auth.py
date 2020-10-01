@@ -18,6 +18,7 @@ def test_authorized_request(api_client_with_credentials):
     assert response.status_code == 200
 
 
+"""
 @pytest.mark.skip
 @pytest.mark.django_db
 def test_factory(api_request_factory, test_user):
@@ -26,3 +27,4 @@ def test_factory(api_request_factory, test_user):
     force_authenticate(request, user=test_user)
     response = view(request)
     assert response.status_code == 200
+"""
