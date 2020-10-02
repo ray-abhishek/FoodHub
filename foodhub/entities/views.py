@@ -6,8 +6,7 @@ from entities.serializers import (MerchantSerializer, ItemSerializer,
                                   StoreSerializer, OrderSerializer)
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.core import serializers
-import json
+
 # Create your views here.
 
 
@@ -60,6 +59,13 @@ class StoreViewSet(viewsets.ModelViewSet):
     queryset = Store.objects.all()
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @action(detail=True)
+    def orders(self, request, pk=None):
+        store = Store.objects.get(pk=pk)
+        orders = Order.objects.filter(store=store)
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
 
 
 class OrderViewSet(viewsets.ModelViewSet):
