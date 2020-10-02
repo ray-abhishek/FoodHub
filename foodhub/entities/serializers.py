@@ -17,7 +17,20 @@ class ItemSerializer(serializers.ModelSerializer):
                   'description', 'created_at')
 
 
+class AttrPKField(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+
+        action = self.context['view'].action
+        if action == "update":
+            merchant = self.context['view'].get_object().merchant
+            return Item.objects.filter(merchant=merchant)
+
+        return Item.objects.all()
+
+
 class StoreSerializer(serializers.ModelSerializer):
+    items = AttrPKField(many=True)
+
     class Meta:
         model = Store
         fields = ('pk', 'name', 'merchant', 'address', 'lon',
@@ -38,6 +51,8 @@ class StoreSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    items = AttrPKField(many=True)
+
     class Meta:
         model = Order
         fields = ('pk', 'merchant', 'store', 'total_cost',
