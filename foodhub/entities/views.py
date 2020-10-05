@@ -21,21 +21,21 @@ class MerchantViewSet(viewsets.ModelViewSet):
 
     @action(detail=True)
     def stores(self, request, pk=None):
-        merchant = Merchant.objects.get(pk=pk)
+        merchant = Merchant.objects.filter(pk=pk).first()
         stores = Store.objects.filter(merchant=merchant)
         serializer = StoreSerializer(stores, many=True)
         return Response(serializer.data)
 
     @action(detail=True)
     def items(self, request, pk=None):
-        merchant = Merchant.objects.get(pk=pk)
+        merchant = Merchant.objects.filter(pk=pk).first()
         items = Item.objects.filter(merchant=merchant)
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
 
     @action(detail=True)
     def orders(self, request, pk=None):
-        merchant = Merchant.objects.get(pk=pk)
+        merchant = Merchant.objects.filter(pk=pk).first()
         orders = Order.objects.filter(merchant=merchant)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
@@ -62,7 +62,7 @@ class StoreViewSet(viewsets.ModelViewSet):
 
     @action(detail=True)
     def orders(self, request, pk=None):
-        store = Store.objects.get(pk=pk)
+        store = Store.objects.filter(pk=pk).first()
         orders = Order.objects.filter(store=store)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
