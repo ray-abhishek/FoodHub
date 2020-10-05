@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'tastypie',
     'entities.apps.EntitiesConfig',
     'rest_framework',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
