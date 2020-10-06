@@ -139,6 +139,14 @@ REST_FRAMEWORK = {
 }
 
 
+
+# CELERY CONFIG
+BROKER_URL = 'amqp://abhishek:Blackbeans@121@localhost:5672/rayrabbithost'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env")
 
 # before you change this make sure to create a folder "static" in project directory, otherwise it will throw an error.
@@ -149,3 +157,4 @@ STATICFILES_DIRS = [
 
 
 STATIC_URL = '/static/'
+
