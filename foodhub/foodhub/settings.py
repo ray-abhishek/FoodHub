@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'entities.apps.EntitiesConfig',
     'rest_framework',
     'django_extensions',
+    'silk',
 ]
 
 MIDDLEWARE = [
+    'silk.middleware.SilkyMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,3 +137,15 @@ REST_FRAMEWORK = {
 
     ]
 }
+
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env")
+
+# before you change this make sure to create a folder "static" in project directory, otherwise it will throw an error.
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+
+STATIC_URL = '/static/'
