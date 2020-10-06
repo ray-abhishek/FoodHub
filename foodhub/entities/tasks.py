@@ -2,8 +2,19 @@ from entities.models import Merchant, Item, Store, Order
 from celery.decorators import task
 
 
-@task(name="create_orders")
-def create_orders(num_of_orders):
+@task(name="create_order")
+def create_order(data):
+    merchant_instance = Merchant.objects.filter(pk=data['merchant']).first()
+    store_instance = Store.objects.filter(pk=data['store']).first()
+    items = data.pop('items')
+    order_instance = Order.objects.create(
+        merchant=merchant_instance, store=store_instance, total_cost=data['total_cost'])
+    order_instance.items.set(items)
+
+
+"""
+@task(name="create_random_orders")
+def create_random_orders(num_of_orders):
     if num_of_orders < 0:
         return
     present, store, item = get_item_store()
@@ -36,3 +47,4 @@ def get_item_store():
         finally:
             if store is not None:
                 return True, store, current_item
+"""
