@@ -60,7 +60,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        log.msg('Create Merchant Request', req=request)
+        log.msg('Create Item Request', req=request)
         return response
 
 
@@ -75,7 +75,7 @@ class StoreViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        log.msg('Create Merchant Request', req=request)
+        log.msg('Create Store Request', req=request)
         return response
 
     @action(detail=True)
