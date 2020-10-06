@@ -8,10 +8,10 @@
 
 ```json
 {
-	"merchant": "localhost:port/merchants/",
-	"store": "localhost:port/stores/",
-	"item": "localhost:port/items/",
-	"order": "localhost:port/orders/"
+	"merchants": "localhost:port/merchants/",
+	"stores": "localhost:port/stores/",
+	"items": "localhost:port/items/",
+	"orders": "localhost:port/orders/"
 }
 ```
 <hr>
