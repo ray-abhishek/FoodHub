@@ -58,9 +58,10 @@ class ItemViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def create(self, request):
-        log.msg('Create Item Request', req=request)
-        super().create(self, request)
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        log.msg('Create Merchant Request', req=request)
+        return response
 
 
 class StoreViewSet(viewsets.ModelViewSet):
@@ -72,9 +73,10 @@ class StoreViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def create(self, request):
-        log.msg('Create Store Request', req=request)
-        super().create(self, request)
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        log.msg('Create Merchant Request', req=request)
+        return response
 
     @action(detail=True)
     def orders(self, request, pk=None):
