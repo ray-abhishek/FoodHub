@@ -135,3 +135,11 @@ REST_FRAMEWORK = {
 
     ]
 }
+
+
+# CELERY CONFIG
+BROKER_URL = 'amqp://abhishek:Blackbeans@121@localhost:5672/rayrabbithost'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
