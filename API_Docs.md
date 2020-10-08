@@ -21,7 +21,7 @@
 #### RESPONSE
 
 
-```json
+```python
 [
     {
      "pk": Integer,
@@ -37,7 +37,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {
      "pk": Integer,
     "name": String,
@@ -51,7 +51,7 @@
 
 #### RESPONSE
 
-```json
+```python
 [
     {
         "pk": Integer,
@@ -68,7 +68,7 @@
 
 #### RESPONSE
 
-```json
+```python
 [
     {
         "pk": Integer,
@@ -88,7 +88,7 @@
 
 #### RESPONSE
 
-```json
+```python
 [
     {
     "pk": Integer,
@@ -106,7 +106,7 @@
 
 #### REQUEST
 
-```json
+```python
 {
     "name": String,
     "email": String, [Optional]
@@ -116,7 +116,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {   
     "pk" : String,
     "name": String,
@@ -130,7 +130,7 @@
 
 #### REQUEST
 
-```json
+```python
 {
     "name": String,
     "email": String, [Optional]
@@ -140,7 +140,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {   
     "pk" : String,
     "name": String,
@@ -157,7 +157,7 @@
 #### RESPONSE
 
 
-```json
+```python
 [
     {
      "pk": Integer,
@@ -177,7 +177,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {
      "pk": Integer,
         "name": String,
@@ -195,7 +195,7 @@
 
 #### REQUEST
 
-```json
+```python
 
 {
         "name": String,
@@ -211,7 +211,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {
         "pk": Integer,
         "name": String,
@@ -231,7 +231,7 @@
 
 #### REQUEST
 
-```json
+```python
 
 {
         "name": String,
@@ -247,7 +247,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {
         "pk": Integer,
         "name": String,
@@ -269,7 +269,7 @@
 #### RESPONSE
 
 
-```json
+```python
 [
      {
         "pk": Integer,
@@ -286,7 +286,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {
      "pk": Integer,
     "name": String,
@@ -302,7 +302,7 @@
 #### REQUEST
 
 
-```json
+```python
 
 {
         "name": String,
@@ -316,7 +316,7 @@
 #### RESPONSE
 
 
-```json
+```python
 
 {
         "pk": Integer,
@@ -334,7 +334,7 @@
 #### REQUEST
 
 
-```json
+```python
 
 {
         "name": String,
@@ -348,7 +348,7 @@
 #### RESPONSE
 
 
-```json
+```python
 
 {
         "pk": Integer,
@@ -368,7 +368,7 @@
 #### RESPONSE
 
 
-```json
+```python
 [
      {
         "pk": Integer,
@@ -386,7 +386,7 @@
 
 #### RESPONSE
 
-```json
+```python
 {
     "pk": Integer,
     "merchant": Integer,
@@ -403,7 +403,7 @@
 #### REQUEST
 
 
-```json
+```python
 
 {
         "pk": Integer,
@@ -419,7 +419,7 @@
 #### RESPONSE
 
 
-```json
+```python
 
 {
         "pk": Integer,
@@ -437,7 +437,7 @@
 #### REQUEST
 
 
-```json
+```python
 
 {
         "pk": Integer,
@@ -453,7 +453,7 @@
 #### RESPONSE
 
 
-```json
+```python
 
 {
         "pk": Integer,
