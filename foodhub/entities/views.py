@@ -102,15 +102,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     def create(self, request):
         log.msg('Create Order Request', req=request.data)
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            create_order.delay(serializer.data)
-            headers = self.get_success_headers(serializer.validated_data)
-            log.msg('Serializer Data', data=serializer.data,
-                    validated_data=serializer.validated_data)
-            response = {"message": "Order is being placed"}
-            return Response(response, status=status.HTTP_201_CREATED,
-                            headers=headers)
-        else:
-            response = {"message": "Order could not be placed."}
-            return Response(response, status=status.HTTP_400_BAD_REQUEST,
-                            headers=headers)
+        serializer.is_valid(raise_exception=True)
+        create_order.delay(serializer.data)
+        headers = self.get_success_headers(serializer.validated_data)
+        log.msg('Serializer Data', data=serializer.data,
+                validated_data=serializer.validated_data)
+        response = {"message": "Order is being placed"}
+        return Response(response, status=status.HTTP_201_CREATED,
+                        headers=headers)
