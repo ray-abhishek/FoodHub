@@ -29,7 +29,6 @@ class MerchantViewSet(viewsets.ModelViewSet):
         log.msg('Create Merchant Request', req=request.data)
         return response
 
-    # @silk_profile(name='stores')
     @action(detail=True)
     def stores(self, request, pk=None):
         merchant = Merchant.objects.filter(pk=pk).first()
@@ -37,7 +36,6 @@ class MerchantViewSet(viewsets.ModelViewSet):
         serializer = StoreSerializer(stores, many=True)
         return Response(serializer.data)
 
-    # @silk_profile(name='items_of_merchants')
     @action(detail=True)
     def items(self, request, pk=None):
         merchant = Merchant.objects.filter(pk=pk).first()
@@ -45,7 +43,6 @@ class MerchantViewSet(viewsets.ModelViewSet):
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
 
-    # @silk_profile(name='orders_of_merchants')
     @action(detail=True)
     def orders(self, request, pk=None):
         merchant = Merchant.objects.filter(pk=pk).first()
@@ -84,7 +81,6 @@ class StoreViewSet(viewsets.ModelViewSet):
         log.msg('Create Store Request', req=request.data)
         return response
 
-    @silk_profile(name='orders_of_store')
     @action(detail=True)
     def orders(self, request, pk=None):
         store = Store.objects.filter(pk=pk).first()
