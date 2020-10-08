@@ -1,5 +1,8 @@
 from entities.models import Merchant, Item, Store, Order
 from celery.decorators import task
+import structlog
+
+log = structlog.get_logger()
 
 
 @task(name="create_order")
@@ -10,6 +13,7 @@ def create_order(data):
     order_instance = Order.objects.create(
         merchant=merchant_instance, store=store_instance, total_cost=data['total_cost'])
     order_instance.items.set(items)
+    log.msg('Order Created', orderID=order_instance.id)
 
 
 """
