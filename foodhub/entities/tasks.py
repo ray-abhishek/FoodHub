@@ -7,6 +7,9 @@ log = structlog.get_logger()
 
 @task(name="create_order")
 def create_order(data):
+    """
+    This function is used to create Order asynchronously.
+    """
     merchant_instance = Merchant.objects.filter(pk=data['merchant']).first()
     store_instance = Store.objects.filter(pk=data['store']).first()
     items = data.pop('items')
