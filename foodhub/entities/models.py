@@ -74,7 +74,8 @@ class Order(models.Model):
         "Total Cost", max_digits=10, decimal_places=2)
     status = models.CharField("Order Status",
                               max_length=100,
-                              choices=OrderStatus.choices, default=OrderStatus.ACTIVE)
+                              choices=OrderStatus.choices,
+                              default=OrderStatus.ACTIVE)
     items = models.ManyToManyField(Item)
     created_at = models.DateTimeField(
         "Created At", auto_now_add=True, null=True)
