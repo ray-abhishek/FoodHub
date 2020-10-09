@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from entities.validators import (validate_store_merchant,
-                                 validate_items_merchant)
+                                 validate_items_merchant, validate_total_cost)
 from entities.models import (Merchant, Item, Store, Order)
 
 
@@ -17,19 +17,7 @@ class ItemSerializer(serializers.ModelSerializer):
                   'description', 'created_at')
 
 
-class AttrPKField(serializers.PrimaryKeyRelatedField):
-    def get_queryset(self):
-
-        action = self.context['view'].action
-        if action == "update":
-            merchant = self.context['view'].get_object().merchant
-            return Item.objects.filter(merchant=merchant)
-
-        return Item.objects.all()
-
-
 class StoreSerializer(serializers.ModelSerializer):
-    items = AttrPKField(many=True)
 
     class Meta:
         model = Store
@@ -51,7 +39,6 @@ class StoreSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    items = AttrPKField(many=True)
 
     class Meta:
         model = Order
@@ -63,13 +50,17 @@ class OrderSerializer(serializers.ModelSerializer):
         Perform object level validation for Merchant Integrity during Order
         Creation.
 
-        validate_store_merchant : Checks if the Store's Merchant is same as
+        Contains below functions :-
+        1. validate_store_merchant : Checks if the Store's Merchant is same as
         Order's Merchant.
-        validate_items_merchant : Checks if the Items' Merchant is same as
+        2. validate_items_merchant : Checks if the Items' Merchant is same as
         Order's Merchant.
+        3. validate_total_cost : Checks if the Sum of Item Costs is equal to
+        Total Cost
         """
 
         validate_store_merchant(data)
         validate_items_merchant(data)
+        validate_total_cost(data)
 
         return data
