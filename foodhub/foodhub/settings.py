@@ -145,15 +145,14 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_ALWAYS_EAGER = True
+# Change below to True during Testing for Celery Task to run on same process.
+CELERY_TASK_ALWAYS_EAGER = False
+
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env")
-
-# before you change this make sure to create a folder "static" in project directory, otherwise it will throw an error.
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
 
 STATIC_URL = '/static/'
