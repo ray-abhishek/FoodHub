@@ -139,13 +139,13 @@ REST_FRAMEWORK = {
 }
 
 
-
 # CELERY CONFIG
 BROKER_URL = 'amqp://abhishek:Blackbeans@121@localhost:5672/rayrabbithost'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_ALWAYS_EAGER = True
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env")
 
@@ -157,4 +157,3 @@ STATICFILES_DIRS = [
 
 
 STATIC_URL = '/static/'
-
