@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APIClient
+from entities.test_suite.test_views import test_order_creation
 
 
 @pytest.fixture(scope="session")
@@ -20,13 +21,6 @@ def api_client():
     return APIClient()
 
 
-"""@pytest.fixture
-def api_request_factory():
-    factory = APIRequestFactory()
-    return factory
-"""
-
-
 @ pytest.fixture(scope="session")
 def api_client_with_credentials(django_db_blocker, api_client, test_user):
 
@@ -36,9 +30,3 @@ def api_client_with_credentials(django_db_blocker, api_client, test_user):
         yield api_client
         print("\nUnauthenticating\n")
         api_client.force_authenticate(user=None)
-
-
-"""
-setup function - pytest
-django_db_blocker
-"""
