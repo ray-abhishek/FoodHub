@@ -12,7 +12,8 @@ from entities.models import Merchant
     ('Merchant', 'merchanttest.com', 9438155726, 400),
     ('Merchant', 'merchant@test', 9438155726, 400),
 ])
-def test_merchant_creation(name, email, phone, status_code, api_client_with_credentials):
+def test_merchant_creation(name, email, phone, status_code,
+                           api_client_with_credentials):
     data = {
         'name': name,
         'email': email,
@@ -32,8 +33,11 @@ def test_merchant_listview(api_client_with_credentials):
     assert len(merchants_in_db) == len(merchant_list)
 
 
-@pytest.mark.parametrize('initial_details,updated_details', [({"name": "Merchant", "email": "", "phone": "9438155726"}, {"name": "Merchant", "email": "", "phone": "1111111111"})])
-def test_merchant_updation(initial_details, updated_details, api_client_with_credentials):
+@pytest.mark.parametrize('initial_details,updated_details', [(
+    {"name": "Merchant", "email": "", "phone": "9438155726"},
+    {"name": "Merchant", "email": "", "phone": "1111111111"})])
+def test_merchant_updation(initial_details, updated_details,
+                           api_client_with_credentials):
 
     creation_url = reverse('merchant-list')
     creation_response = api_client_with_credentials.post(
