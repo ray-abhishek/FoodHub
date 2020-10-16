@@ -10,4 +10,5 @@ router.register(r'orders', views.OrderViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('webhook/', views.webhook_endpoint)
 ]
