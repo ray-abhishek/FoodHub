@@ -1,6 +1,7 @@
 import json
+from rest_framework.settings import api_settings
 from json.encoder import JSONEncoder
-
+from rest_framework.pagination import LimitOffsetPagination
 from django.http.response import JsonResponse
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -15,7 +16,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import structlog
-
+from rest_framework.utils.urls import remove_query_param, replace_query_param
 # Create your views here.
 
 log = structlog.get_logger()
@@ -104,6 +105,25 @@ class OrderViewSet(viewsets.ModelViewSet):
         'merchant', 'store').prefetch_related('items')
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
+    pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
+
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        user_agent = self.request.headers.get('User-Agent', None)
+        log.info('INSIDE paginator',user_agent = user_agent)
+        if not hasattr(self, '_paginator'):
+        
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                if 'Postman' in user_agent:
+                    self._paginator = CustomPagination()
+                else:
+                    self._paginator = self.pagination_class()
+        return self._paginator
 
     def create(self, request):
         log.msg('Create Order Request', req=request.data)
@@ -116,6 +136,51 @@ class OrderViewSet(viewsets.ModelViewSet):
         response = {"message": "Order is being placed"}
         return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
+
+class CustomPagination(LimitOffsetPagination):
+    default_limit = 10
+    limit_query_param = 'end'
+    offset_query_param = 'start'
+
+    def paginate_queryset(self, queryset, request, view=None):
+        self.count = self.get_count(queryset)
+        self.limit = self.get_limit(request)
+        if self.limit is None:
+            return None
+
+        self.offset = self.get_offset(request)
+        self.request = request
+        if self.count > self.limit and self.template is not None:
+            self.display_page_controls = True
+
+        if self.count == 0 or self.offset > self.count:
+            return []
+        return list(queryset[self.offset : self.limit])
+
+    def get_next_link(self):
+        if self.limit >= self.count:
+            return None
+
+        url = self.request.build_absolute_uri()
+        url = replace_query_param(url, self.offset_query_param, self.limit)
+
+        offset = self.limit + self.default_limit
+        return replace_query_param(url, self.limit_query_param, offset)
+
+    def get_previous_link(self):
+        if self.offset <= 0:
+            return None
+
+        url = self.request.build_absolute_uri()
+        limit = self.offset
+        url = replace_query_param(url, self.limit_query_param, limit)
+
+        if self.offset - self.default_limit <= 0:
+            return remove_query_param(url, self.offset_query_param)
+
+        offset = self.offset - self.default_limit
+
+        return replace_query_param(url, self.offset_query_param, offset)
 
 
 @csrf_exempt

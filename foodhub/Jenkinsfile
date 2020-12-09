@@ -1,0 +1,28 @@
+#!groovy
+
+node {
+
+    try {
+        stage 'Checkout'
+            checkout scm
+
+            sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+            def lastChanges = readFile('GIT_CHANGES')
+
+
+        stage 'Test'
+            sh 'virtualenv env -p python3.6.9'
+            sh '. env/bin/activate'
+            sh 'env/bin/pip install -r requirements.txt'
+            sh 'env/bin/pytest -v --no-migrations -s'
+
+        stage 'Deploy'
+            sh 'deploy_commands.sh'
+
+    }
+
+    catch (err) {
+        throw err
+    }
+
+}
