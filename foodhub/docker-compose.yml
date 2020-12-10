@@ -16,7 +16,6 @@ services:
     image: mysql:5.6
     environment:
       MYSQL_DATABASE: "foodhub_db"
-      MYSQL_PASSWORD: "Up123pU"
       MYSQL_ROOT_PASSWORD: "Up123pU"
     volumes:
       - .:/server/
