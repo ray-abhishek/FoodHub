@@ -8,7 +8,7 @@ def test_user(django_db_blocker):
 
     with django_db_blocker.unblock():
         user = User.objects.create_user(
-            username='root', password='password')
+            username='admin', password='admin')
         print("\n Creating User \n")
         yield user
 
