@@ -1,6 +1,5 @@
 cd foodhub
-git pull
+git pull origin ${BRANCH}
 source /opt/foodhub/bin/activate
-pip install -r requirements.txt
-./manage.py migrate
-exit
+sudo docker-compose build server
+sudo docker-compose down && sudo docker-compose up

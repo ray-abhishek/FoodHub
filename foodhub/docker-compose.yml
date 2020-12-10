@@ -1,0 +1,70 @@
+version: '2'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "ERLANGYODAWGHERESACOOKIE"
+      RABBITMQ_DEFAULT_USER: "urbanpiper"
+      RABBITMQ_DEFAULT_PASS: "urbanpiper"
+      RABBITMQ_DEFAULT_VHOST: "uphost"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_DATABASE: "foodhub_db"
+      MYSQL_ROOT_PASSWORD: "Up123pU"
+    volumes:
+      - .:/server/
+      - .:/etc/mysql/conf.d/
+    ports:
+      - "3300:3306"
+
+  server:
+    build:
+     context: .
+     dockerfile: Dockerfile
+    image: server/image
+    volumes:
+      - .:/server/
+    ports:
+      - "8000:8000"
+    environment:
+      IN_DOCKER_CONTAINER: "TRUE"
+    entrypoint:
+      - python3
+      - /server/manage.py
+      - runserver
+      - 0.0.0.0:8000
+    depends_on:
+      - mysql
+      - rabbitmq
+
+  celery:
+    image: server/image
+    volumes:
+      - .:/server/
+    environment:
+      C_FORCE_ROOT: "TRUE"
+      IN_DOCKER_CONTAINER: "TRUE"
+    entrypoint:
+      - celery
+      - -A
+      - foodhub
+      - worker
+
+  celerybeat:
+    image: server/image
+    volumes:
+      - .:/server/
+    environment:
+      IN_DOCKER_CONTAINER: "TRUE"
+      C_FORCE_ROOT: "TRUE"
+    entrypoint:
+      - celery
+      - -A
+      - foodhub
+      - beat

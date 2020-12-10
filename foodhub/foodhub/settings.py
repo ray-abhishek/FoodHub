@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'foodhub_db',
         'USER': 'root',
         'PASSWORD': 'Up123pU',
-        'HOST': 'localhost',
+        'HOST': 'mysql',
         'PORT': '3306',
     }
 }
@@ -140,8 +140,11 @@ REST_FRAMEWORK = {
 
 
 # CELERY CONFIG
-BROKER_URL = 'amqp://abhishek:Blackbeans@121@localhost:5672/rayrabbithost'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# FOR Docker Container
+BROKER_URL = "amqp://urbanpiper:urbanpiper@rabbitmq:5672/uphost"
+# FOR LOCAL
+# BROKER_URL = "amqp://urbanpiper:urbanpiper@localhost:5672/uphost"
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
