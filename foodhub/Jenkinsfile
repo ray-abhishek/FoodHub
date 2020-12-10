@@ -7,7 +7,7 @@ node {
    'IN_CI_ENV=true',
    'CI_DB_NAME=tests',
    'CI_DB_USER=root',
-   'CI_DB_PASS=password',
+   'CI_DB_PASS=Up123pU',
    'CI_DB_HOST=mysql',
    'CI_DB_PORT=3306'
   ]
