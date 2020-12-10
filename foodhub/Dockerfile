@@ -17,5 +17,5 @@ WORKDIR /server
 COPY requirements.txt /server/
 RUN pip3 install -r requirements.txt
 COPY . /server/
-RUN python3 manage.py migrate
+
 EXPOSE 8000
