@@ -27,15 +27,11 @@ services:
      context: .
      dockerfile: Dockerfile
     image: server/image
+    command: python3 manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     environment:
       IN_DOCKER_CONTAINER: "TRUE"
-    entrypoint:
-      - python3
-      - manage.py
-      - runserver
-      - 0.0.0.0:8000
     depends_on:
       - mysql
       - rabbitmq
