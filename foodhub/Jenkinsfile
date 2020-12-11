@@ -31,7 +31,7 @@ node {
         stage('Deploy') {
             dir(source_dir) {
               sh 'ls'
-              sh 'docker-compose down && docker-compose up'
+              sh 'docker-compose down && docker-compose up -d'
               sh 'docker-compose run --rm --entrypoint "python3 manage.py migrate --noinput" server'
             }
         }
