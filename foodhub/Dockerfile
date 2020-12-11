@@ -20,6 +20,4 @@ COPY . /server/
 
 EXPOSE 8000
 
-ADD docker-entrypoint.sh /usr/bin/docker-entrypoint
-RUN chmod +x /usr/bin/docker-entrypoint
-ENTRYPOINT ["docker-entrypoint"]
+RUN python manage.py runserver 0.0.0.0:8000
