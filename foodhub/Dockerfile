@@ -19,3 +19,7 @@ RUN pip3 install -r requirements.txt
 COPY . /server/
 
 EXPOSE 8000
+
+ADD docker-entrypoint.sh /usr/bin/docker-entrypoint
+RUN chmod +x /usr/bin/docker-entrypoint
+ENTRYPOINT ["docker-entrypoint"]
