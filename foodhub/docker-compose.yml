@@ -32,6 +32,7 @@ services:
      context: .
      dockerfile: Dockerfile
     image: server/image
+    command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - foodhub_server:/server/
     stdin_open: true
