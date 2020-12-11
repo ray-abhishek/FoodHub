@@ -31,7 +31,7 @@ node {
         stage('Deploy') {
             dir(source_dir) {
               sh 'ls'
-              sh '/deploy_commands.sh'
+              sh 'bash deploy_commands.sh'
             }
         }
             
