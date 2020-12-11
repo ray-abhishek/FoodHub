@@ -36,7 +36,7 @@ services:
       IN_DOCKER_CONTAINER: "TRUE"
     entrypoint:
       - python3
-      - /server/manage.py
+      - manage.py
       - runserver
       - 0.0.0.0:8000
     depends_on:
