@@ -40,11 +40,6 @@ services:
       - "8000:8000"
     environment:
       IN_DOCKER_CONTAINER: "TRUE"
-    entrypoint:
-      - python3
-      - /server/manage.py
-      - runserver
-      - 0.0.0.0:8000
 
   celery:
     image: server/image
