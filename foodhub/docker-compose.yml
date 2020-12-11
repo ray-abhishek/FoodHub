@@ -1,5 +1,9 @@
 version: '2'
 
+volumes:
+  foodhub_mysql:
+  foohub_server:
+
 services:
   rabbitmq:
     image: rabbitmq:3-management
