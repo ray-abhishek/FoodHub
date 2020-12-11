@@ -32,8 +32,8 @@ node {
             dir(source_dir) {
               sh 'ls'
               sh 'docker-compose down && docker-compose up -d'
-              sh 'docker-compose exec -it server python3 manage.py migrate --no-input'
-              sh 'docker-compose exec -it server python3 manage.py runserver'
+              sh 'docker-compose exec -it foodhub_server_1 python3 manage.py migrate --no-input'
+              sh 'docker-compose exec -it foodhub_server_1 python3 manage.py runserver'
             }
         }
             
