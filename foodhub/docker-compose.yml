@@ -3,6 +3,7 @@ version: '2'
 volumes:
   foodhub_mysql:
   foodhub_server:
+  local:
 
 services:
   rabbitmq:
@@ -24,6 +25,7 @@ services:
     volumes:
       - foodhub_mysql:/server/
       - .:/etc/mysql/conf.d/
+      - local:/var/lib/mysql/
     ports:
       - "3300:3306"
 
@@ -38,8 +40,6 @@ services:
     tty: true
     ports:
       - "8000:8000"
-    environment:
-      IN_DOCKER_CONTAINER: "TRUE"
     entrypoint:
       - python3
       - manage.py
@@ -48,15 +48,9 @@ services:
     depends_on:
       - mysql
       - rabbitmq
-    links:
-      - mysql
-      - rabbitmq
 
   celery:
     image: server/image
-    environment:
-      C_FORCE_ROOT: "TRUE"
-      IN_DOCKER_CONTAINER: "TRUE"
     entrypoint:
       - celery
       - -A
@@ -65,9 +59,6 @@ services:
 
   celerybeat:
     image: server/image
-    environment:
-      IN_DOCKER_CONTAINER: "TRUE"
-      C_FORCE_ROOT: "TRUE"
     entrypoint:
       - celery
       - -A
