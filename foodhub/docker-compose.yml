@@ -45,6 +45,9 @@ services:
       - manage.py
       - runserver
       - 0.0.0.0:8000
+    depends_on:
+      - mysql
+      - rabbitmq
     links:
       - mysql
       - rabbitmq
