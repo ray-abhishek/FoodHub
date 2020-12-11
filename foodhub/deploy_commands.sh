@@ -1,2 +1,2 @@
 docker-compose down && docker-compose up -d
-docker-compose run --rm --entrypoint "python3 manage.py migrate --noinput" server > /dev/null
+docker-compose exec -it foodhub_server_1 python3 manage.py migrate
