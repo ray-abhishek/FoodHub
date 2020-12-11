@@ -2,7 +2,7 @@ version: '2'
 
 volumes:
   foodhub_mysql:
-  foohub_server:
+  foodhub_server:
 
 services:
   rabbitmq:
