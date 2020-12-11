@@ -34,7 +34,8 @@ services:
     entrypoint:
       - python3
       - manage.py
-      - migrate
+      - runserver
+      - 0.0.0.0:8000
     depends_on:
       - mysql
       - rabbitmq
