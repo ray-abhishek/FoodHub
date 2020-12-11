@@ -18,6 +18,7 @@ services:
       MYSQL_DATABASE: "foodhub_db"
       MYSQL_ROOT_PASSWORD: "Up123pU"
     volumes:
+      - foodhub_mysql:/server/
       - .:/etc/mysql/conf.d/
     ports:
       - "3300:3306"
@@ -27,14 +28,17 @@ services:
      context: .
      dockerfile: Dockerfile
     image: server/image
-    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - foodhub_server:/server/
     ports:
       - "8000:8000"
     environment:
       IN_DOCKER_CONTAINER: "TRUE"
-    depends_on:
-      - mysql
-      - rabbitmq
+    entrypoint:
+      - python
+      - /server/manage.py
+      - runserver
+      - 0.0.0.0:8000
 
   celery:
     image: server/image
