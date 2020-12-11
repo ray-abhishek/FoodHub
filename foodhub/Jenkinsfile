@@ -30,7 +30,8 @@ node {
 
         stage('Deploy') {
             dir(source_dir) {
-              sh 'foodhub/deploy_commands.sh'
+              sh 'ls'
+              sh '/deploy_commands.sh'
             }
         }
             
