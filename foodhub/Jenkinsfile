@@ -34,7 +34,7 @@ node {
               withEnv(env_vars) {
                 docker.image('server/image').inside("--link=${mc.id}:mysql --link=${rc.id}:rabbitmq") {
                   sh 'find . -name *.pyc | xargs rm -f'
-                  sh 'pytest -s --no-migrations -vvv'
+                  sh 'pytest -s --no-migrations -v -n auto'
                 }
               }
             }
