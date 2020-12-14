@@ -74,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'foodhub.wsgi.application'
 
-
+ENV_IS_CI = os.environ.get('IN_CI_ENV')
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -86,8 +86,22 @@ DATABASES = {
         'PASSWORD': 'Up123pU',
         'HOST': 'mysql',
         'PORT': '3306',
+        }
     }
-}
+
+if ENV_IS_CI:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['CI_DB_NAME'],
+        'USER': os.environ['CI_DB_USER'],
+        'PASSWORD': os.environ['CI_DB_PASS'],
+        'HOST': os.environ['CI_DB_HOST'],
+        'PORT': os.environ['CI_DB_PORT'],
+        }
+    }
+
+
 
 
 # Password validation
