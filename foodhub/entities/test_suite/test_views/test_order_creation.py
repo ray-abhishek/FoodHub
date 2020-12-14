@@ -2,7 +2,7 @@ import pytest
 import json
 from django.urls import reverse
 
-
+@pytest.mark.skip
 @pytest.mark.parametrize('merchant_data, item_data, store_data, order_data,status_code', [(
     {"name": "TestMerchant", "phone": 9428155726},
     {"name": "TestFoodItem", "cost": 100},
