@@ -48,6 +48,8 @@ services:
     depends_on:
       - mysql
       - rabbitmq
+    environment:
+      WAIT_HOSTS: mysql:3306
 
   celery:
     image: server/image
