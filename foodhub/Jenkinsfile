@@ -44,7 +44,6 @@ node {
 
         stage('Deploy') {
             dir(source_dir) {
-              sh 'ls'
               sh 'bash deploy_commands.sh'
             }
         }
