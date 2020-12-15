@@ -17,7 +17,7 @@ node {
   def rabbitmq_args = '-e RABBITMQ_ERLANG_COOKIE="COOKIE" -e RABBITMQ_DEFAULT_USER="urbanpiper" -e RABBITMQ_DEFAULT_PASS="urbanpiper" -e RABBITMQ_DEFAULT_VHOST="uphost"'
   def mysql_image = 'dnhsoft/mysql-utf8:5.6'
   def mysql_args = '-e MYSQL_ROOT_PASSWORD="password" -v jenkins_mysql_db:/var/lib/mysql'
-  def contains_migration = true
+  def contains_migration = "${env.CONTAINS_MIGRATIONS}"
   stage('Build Image') {
     dir(source_dir) {
       sh 'docker build . -t server/image'
@@ -34,7 +34,7 @@ node {
               withEnv(env_vars) {
                 docker.image('server/image').inside("--link=${mc.id}:mysql --link=${rc.id}:rabbitmq") {
                   sh 'find . -name *.pyc | xargs rm -f'
-                  sh 'pytest -s --no-migrations -v'
+                  sh 'pytest -s --no-migrations -vvv --reuse-db'
                 }
               }
             }
