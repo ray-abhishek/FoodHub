@@ -207,7 +207,7 @@ def handle_jenkins_server_webhooks(request):
     if branch_name not in ['master', 'beta', 'int-beta', 'prod-1.7']:
         return HttpResponse(status=400)
     
-    contains_migration = ''
+    contains_migration = 'false'
     added_files = list()
     for commit in payload["commits"]:
         added_files.extend(commit["added"])
