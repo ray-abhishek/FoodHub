@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Start server
-echo "St"
+echo "Sta"
 python3 manage.py runserver 0.0.0.0:8000
