@@ -40,14 +40,15 @@ services:
     tty: true
     ports:
       - "8000:8000"
-    command: >
-      sh -c "python3 manage.py migrate &&
-             python3 manage.py runserver 0.0.0.0:8000"
+    entrypoint:
+      - python3
+      - manage.py 
+      - runserver
+      - 0.0.0.0:8000
     depends_on:
       - mysql
       - rabbitmq
-    environment:
-      WAIT_HOSTS: mysql:3306
+    
 
   celery:
     image: server/image
