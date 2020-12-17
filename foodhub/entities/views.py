@@ -217,7 +217,6 @@ def handle_jenkins_server_webhooks(request):
             contains_migration = 'true'
             break
 
-    print(contains_migration," is contains_migration")
     command = """curl -X POST http://jenkins_api:11b1053a6d889c33f1849ffcafdc0ff8c4@localhost:8080/job/server/build/\?token\=Ne6SmlAr2KSoQtNTOAJ0n5fDQUG8Wmw+D6iJhyI6OFo --data-urlencode   json='{"parameter": [{"name":"BRANCH_NAME", "value":"%s"}, {"name":"CONTAINS_MIGRATION", "value":"%s"}]}' -H "Jenkins-Crumb:dda15e90ce2e5fe9252d3d971b7700c3" """ % (branch_name, contains_migration)
     log.info(command)
     os.system(command)

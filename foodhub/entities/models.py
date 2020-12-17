@@ -23,6 +23,7 @@ class Merchant(models.Model):
     created_at = models.DateTimeField(
         "Created At", auto_now_add=True, null=True)
 
+
     def __str__(self):
         return self.name
 
@@ -39,6 +40,7 @@ class Item(models.Model):
     description = models.TextField("Description", blank=True)
     created_at = models.DateTimeField(
         "Created At", auto_now_add=True, null=True)
+    active = models.BooleanField("Active", default=False)
 
     def __str__(self):
         return self.name
