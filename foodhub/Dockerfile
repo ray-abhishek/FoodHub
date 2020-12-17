@@ -12,8 +12,7 @@ WORKDIR /Python-3.6.9
 RUN ./configure --enable-ipv6
 RUN make
 RUN make install
-RUN git clone git@github.com:ray-abhishek/Foodhub.git
-RUN git pull origin master
+
 WORKDIR /server
 COPY requirements.txt /server/
 RUN pip3 install -r requirements.txt
