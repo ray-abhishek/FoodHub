@@ -1,0 +1,77 @@
+name: Run Tests
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  build_server:
+    # Name the Job
+    name: Build Server
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix:
+        python-version: [3.6.9]
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+        - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      rabbitmq:
+        image: rabbitmq:3.8.9
+        env:
+          RABBITMQ_DEFAULT_USER: urbanpiper
+          RABBITMQ_DEFAULT_PASS: urbanpiper
+          RABBITMQ_DEFAULT_VHOST: uphost
+        ports:
+        - 5672:5672
+        options: -e RABBITMQ_ERLANG_COOKIE="COOKIE" -e RABBITMQ_DEFAULT_USER="urbanpiper" -e RABBITMQ_DEFAULT_PASS="urbanpiper" -e RABBITMQ_DEFAULT_VHOST="uphost"
+          --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      
+      - name: Verify MySQL connection from host
+        run: |
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 -uroot -ppassword -e "SHOW DATABASES"
+      
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Installs python version as specified in matrix.
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python-dev python-pip libgeos-dev python-dev swig libssl-dev libffi-dev libncurses5-dev
+          sudo apt-get install libjpeg-dev libfreetype6-dev zlib1g-dev libpq-dev libmysqlclient-dev inotify-tools tzdata wget libbz2-dev
+          sudo apt-get install libsqlite3-dev locales
+      
+      - name: Install pip dependencies
+        run:
+          python3 -m pip3 install --upgrade pip3
+          pip3 install requirements.txt
+      
+      - name: Run Tests
+        env:
+          IN_DOCKER_CONTAINER: false
+          IN_CI_ENV: true
+          CI_DB_NAME: tests
+          CI_DB_USER: root
+          CI_DB_PASS: password
+          CI_DB_HOST: 127.0.0.1
+          CI_DB_PORT: 3306
+        run: |
+          pytest -s --no-migrations -vvv
