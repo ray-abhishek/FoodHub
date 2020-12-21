@@ -63,6 +63,7 @@ jobs:
           restore-keys: ${{ runner.os }}-buildx-
 
       - name: Build and Push
+        id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -87,4 +88,4 @@ jobs:
           CI_DB_PORT: 3306
         run: |
           docker ps
-          docker run --rm --entrypoint "pytest -s --no-migrations -v -n auto" foodhub
+          docker run --rm --entrypoint "pytest -s --no-migrations -v -n auto" ${{ steps.docker_build.outputs.digest }}
