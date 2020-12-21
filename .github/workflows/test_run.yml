@@ -72,5 +72,5 @@ jobs:
           CI_DB_PASS: password
           CI_DB_HOST: 127.0.0.1
           CI_DB_PORT: 3306
-        run: |
-          docker exec -it myimage:latest pytest -s --no-migrations -v -n auto
+        run: 
+          docker ps
