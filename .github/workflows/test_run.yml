@@ -74,7 +74,7 @@ jobs:
           push: true
           tags:  abhi22ray/foodhub:latest
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
       
       - name: Image digest
         run: |
@@ -84,7 +84,7 @@ jobs:
       - name: Run Container
         uses: docker://abhi22ray/foodhub
         with:
-          entrypoint: ls
+          entrypoint: pytest -s -v --no-migrations --reuse-db
 
       - name: Run Tests
         env:
