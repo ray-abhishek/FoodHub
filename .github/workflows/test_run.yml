@@ -81,12 +81,12 @@ jobs:
         with:
           entrypoint: pytest
           args: |
-            -s 
-            -v 
-            --no-migrations 
-            --reuse-db 
-            -n 
-            auto
+            - -s 
+            - -v 
+            - --no-migrations 
+            - --reuse-db 
+            - -n 
+            - auto
             
       - name: Run Tests
         env:
