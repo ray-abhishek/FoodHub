@@ -80,9 +80,5 @@ jobs:
         uses: docker://abhi22ray/foodhub
         with:
           entrypoint: pytest
-          args:
-            - -s 
-            - -v 
-            - --no-migrations 
-            - --reuse-db 
+          args: -s -v
             
