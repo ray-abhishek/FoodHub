@@ -85,6 +85,13 @@ jobs:
         uses: docker://abhi22ray/foodhub
         with:
           entrypoint: pytest
+          args: |
+          -s 
+          -v 
+          --no-migrations 
+          --reuse-db 
+          -n 
+          auto
             
       - name: Run Tests
         env:
@@ -97,5 +104,3 @@ jobs:
           CI_DB_PORT: 3306
         run: |
           docker ps
-          docker image ls
-          docker exec -it buildx_buildkit_builder-build_server-20 pytest -s -v
