@@ -84,8 +84,10 @@ jobs:
       - name: Run Container
         uses: docker://abhi22ray/foodhub
         with:
-          entrypoint: python3 foodhub/manage.py runserver
-
+          entrypoint: |
+            cd foodhub
+            pytest -s -v
+            
       - name: Run Tests
         env:
           IN_DOCKER_CONTAINER: false
