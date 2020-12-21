@@ -84,7 +84,7 @@ jobs:
       - name: Run Container
         uses: docker://abhi22ray/foodhub
         with:
-          entrypoint: pytest -s -v
+          entrypoint: ls
 
       - name: Run Tests
         env:
