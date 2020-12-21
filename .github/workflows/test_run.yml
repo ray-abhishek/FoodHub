@@ -72,13 +72,12 @@ jobs:
           tags:  abhi22ray/foodhub:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+          build-args: |
+            name=foodhubdk
+            arg2=value2
       
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-      - name: Inspect
-        run: |
-          docker image inspect abhi22ray/foodhub:latest
 
       - name: Run Tests
         env:
@@ -89,5 +88,6 @@ jobs:
           CI_DB_PASS: password
           CI_DB_HOST: 127.0.0.1
           CI_DB_PORT: 3306
-        run: 
-          docker run --rm --entrypoint "pytest -s --no-migrations -v -n auto" abhi22ray/foodhub:latest
+        run: |
+          docker ps
+          docker run --rm --entrypoint "pytest -s --no-migrations -v -n auto" foodhubdk
