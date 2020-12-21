@@ -60,7 +60,7 @@ jobs:
           sudo apt-get install libsqlite3-dev locales
       
       - name: Install pip dependencies
-        run:
+        run: |
           sudo apt-get install python3-pip
           pip3 install foodhub/requirements.txt
       
