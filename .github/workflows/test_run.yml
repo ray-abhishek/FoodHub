@@ -76,22 +76,17 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
       
-      - name: Image digest
-        run: |
-            docker buildx imagetools inspect abhi22ray/foodhub:latest 
-            echo ${{ steps.docker_build.outputs.digest }}
-
       - name: Run Container
         uses: docker://abhi22ray/foodhub
         with:
           entrypoint: pytest
           args: |
-          -s 
-          -v 
-          --no-migrations 
-          --reuse-db 
-          -n 
-          auto
+            -s 
+            -v 
+            --no-migrations 
+            --reuse-db 
+            -n 
+            auto
             
       - name: Run Tests
         env:
@@ -102,5 +97,4 @@ jobs:
           CI_DB_PASS: password
           CI_DB_HOST: 127.0.0.1
           CI_DB_PORT: 3306
-        run: |
-          docker ps
+        run: docker ps
