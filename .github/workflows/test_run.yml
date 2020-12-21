@@ -86,13 +86,3 @@ jobs:
             - --no-migrations 
             - --reuse-db 
             
-      - name: Run Tests
-        env:
-          IN_DOCKER_CONTAINER: false
-          IN_CI_ENV: true
-          CI_DB_NAME: tests
-          CI_DB_USER: root
-          CI_DB_PASS: password
-          CI_DB_HOST: 127.0.0.1
-          CI_DB_PORT: 3306
-        run: docker ps
