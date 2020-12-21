@@ -76,6 +76,10 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+      - name: Inspect
+        run: |
+          docker image inspect abhi22ray/foodhub:latest
+
       - name: Run Tests
         env:
           IN_DOCKER_CONTAINER: false
@@ -86,4 +90,4 @@ jobs:
           CI_DB_HOST: 127.0.0.1
           CI_DB_PORT: 3306
         run: 
-          docker ps
+          docker run --rm --entrypoint "pytest -s --no-migrations -v -n auto" abhi22ray/foodhub:latest
