@@ -85,8 +85,6 @@ jobs:
             - -v 
             - --no-migrations 
             - --reuse-db 
-            - -n 
-            - auto
             
       - name: Run Tests
         env:
