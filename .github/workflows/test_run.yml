@@ -91,5 +91,6 @@ jobs:
           CI_DB_HOST: 127.0.0.1
           CI_DB_PORT: 3306
         run: |
+          docker ps
           docker image ls
-          docker exec -it buildx_buildkit_builder-build_server-20
+          docker exec -it buildx_buildkit_builder-build_server-20 pytest -s -v
