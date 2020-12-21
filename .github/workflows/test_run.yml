@@ -69,7 +69,7 @@ jobs:
           file: foodhub/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags:  ray-abhishek/foodhub:latest
+          tags:  abhi22ray/foodhub:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       
