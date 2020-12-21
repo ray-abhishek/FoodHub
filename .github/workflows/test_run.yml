@@ -80,7 +80,7 @@ jobs:
         uses: docker://abhi22ray/foodhub
         with:
           entrypoint: pytest
-          args: |
+          args:
             - -s 
             - -v 
             - --no-migrations 
