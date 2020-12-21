@@ -76,7 +76,7 @@ jobs:
       
       - name: Image digest
         run: |
-            echo ${{ steps.docker_build.outputs }} 
+            docker buildx imagetools inspect abhi22ray/foodhub:latest 
             echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Run Tests
