@@ -62,7 +62,8 @@ jobs:
       - name: Install pip dependencies
         run: |
           sudo apt-get install python3-pip
-          pip3 install foodhub/requirements.txt
+          ls
+          pip3 install -r foodhub/requirements.txt
       
       - name: Run Tests
         env:
