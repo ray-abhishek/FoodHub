@@ -81,6 +81,11 @@ jobs:
             docker buildx imagetools inspect abhi22ray/foodhub:latest 
             echo ${{ steps.docker_build.outputs.digest }}
 
+      - name: Run Container
+        uses: docker://abhi22ray/foodhub
+        with:
+          entrypoint: pytest -s -v
+
       - name: Run Tests
         env:
           IN_DOCKER_CONTAINER: false
