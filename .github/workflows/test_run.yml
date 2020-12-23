@@ -1,17 +1,12 @@
 name: Run Tests
 
-# Run this workflow every time a new commit pushed to your repository
 on:
   push:
     branches: master
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
   build_server:
-    # Name the Job
     name: Build Server
-    # Set the type of machine to run on
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
@@ -81,4 +76,10 @@ jobs:
         with:
           entrypoint: pytest
           args: -s -v --no-migrations -n auto
+
+      - name: Run Container
+        uses: docker://abhi22ray/foodhub
+        with:
+          entrypoint: pip3
+          args: install -r requirements.txt
             
