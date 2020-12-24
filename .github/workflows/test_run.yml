@@ -69,15 +69,17 @@ jobs:
         tags:  abhi22ray/foodhub:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+        build-args: |
+          IN_DOCKER_CONTAINER=true
+          IN_CI_ENV=true
+          CI_DB_NAME=tests
+          CI_DB_USER=root
+          CI_DB_PASS=password
+          CI_DB_HOST=mysql
+          CI_DB_PORT=3306 
 
     - name: Run Tests
-      env:
-        IN_DOCKER_CONTAINER: false
-        IN_CI_ENV: true
-        CI_DB_NAME: tests
-        CI_DB_USER: root
-        CI_DB_PASS: password
-        CI_DB_HOST: 127.0.0.1
-        CI_DB_PORT: 3306
-      run: |
-        docker exec -it docker://abhi22ray/foodhub pytest -s -v
+      uses: docker://abhi22ray/foodhub
+      with:
+        entrypoint: echo
+        args: $CI_DB_HOST
