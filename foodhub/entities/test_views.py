@@ -1,12 +1,15 @@
 import pytest
 from django.test import Client
 import time
+import os 
 
 class TestApp:
     def test_1(self):
         '''
             To test homepage
         '''
+        print(os.environ.get('ENV_IS_CI')," is ENV_IS_CI")
+        print(os.environ['CI_DB_HOST']," is the host")
         time.sleep(5)
         assert 200 == 200
 
