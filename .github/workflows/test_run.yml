@@ -71,8 +71,7 @@ jobs:
         cache-to: type=local,dest=/tmp/.buildx-cache
 
     - name: Run Tests
-      uses: docker://abhi22ray/foodhub
-      env: |
+      env:
         IN_DOCKER_CONTAINER=true
         IN_CI_ENV=true
         CI_DB_NAME=tests
@@ -80,6 +79,7 @@ jobs:
         CI_DB_PASS=password
         CI_DB_HOST=mysql
         CI_DB_PORT=3306 
+      uses: docker://abhi22ray/foodhub
       with:
         entrypoint: pytest
         args: -s -v --no-migrations --reuse-db
