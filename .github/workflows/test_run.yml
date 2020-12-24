@@ -14,13 +14,13 @@ jobs:
       matrix:
         python-version: [3.6.9]
     env:
-      IN_DOCKER_CONTAINER:true
-      ENV_IS_CI:true
-      CI_DB_NAME:tests
-      CI_DB_USER:root
-      CI_DB_PASS:password
-      CI_DB_HOST:mysql
-      CI_DB_PORT:3306 
+      IN_DOCKER_CONTAINER: true
+      ENV_IS_CI: true
+      CI_DB_NAME: tests
+      CI_DB_USER: root
+      CI_DB_PASS: password
+      CI_DB_HOST: mysql
+      CI_DB_PORT: 3306 
 
     services:
       mysql:
