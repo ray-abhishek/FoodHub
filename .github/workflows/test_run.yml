@@ -71,7 +71,7 @@ jobs:
         cache-to: type=local,dest=/tmp/.buildx-cache
         build-args: |
           IN_DOCKER_CONTAINER=true
-          IN_CI_ENV=true
+          ENV_IS_CI=true
           CI_DB_NAME=tests
           CI_DB_USER=root
           CI_DB_PASS=password
@@ -81,5 +81,5 @@ jobs:
     - name: Run Tests
       uses: docker://abhi22ray/foodhub
       with:
-        entrypoint: echo
-        args: $CI_DB_HOST
+        entrypoint: pytest
+        args: -s -v
