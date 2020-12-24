@@ -72,14 +72,12 @@ jobs:
 
     - name: Run Tests
       env:
-        IN_DOCKER_CONTAINER=true
-        IN_CI_ENV=true
-        CI_DB_NAME=tests
-        CI_DB_USER=root
-        CI_DB_PASS=password
-        CI_DB_HOST=mysql
-        CI_DB_PORT=3306 
-      uses: docker://abhi22ray/foodhub
-      with:
-        entrypoint: pytest
-        args: -s -v --no-migrations --reuse-db
+        IN_DOCKER_CONTAINER: false
+        IN_CI_ENV: true
+        CI_DB_NAME: tests
+        CI_DB_USER: root
+        CI_DB_PASS: password
+        CI_DB_HOST: 127.0.0.1
+        CI_DB_PORT: 3306
+      run: |
+        docker exec -it abhi22ray/foodhub pytest -s -v
