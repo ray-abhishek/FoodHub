@@ -80,4 +80,4 @@ jobs:
         CI_DB_HOST: 127.0.0.1
         CI_DB_PORT: 3306
       run: |
-        docker exec -it abhi22ray/foodhub pytest -s -v
+        docker exec -it docker://abhi22ray/foodhub pytest -s -v
