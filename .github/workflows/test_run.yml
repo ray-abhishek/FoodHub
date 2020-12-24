@@ -77,8 +77,6 @@ jobs:
         tags:  abhi22ray/foodhub:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
-        build-args: |
-
 
     - name: Run Tests
       uses: docker://abhi22ray/foodhub
