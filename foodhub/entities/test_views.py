@@ -9,7 +9,7 @@ class TestApp:
             To test homepage
         '''
         print(os.environ.get('ENV_IS_CI')," is ENV_IS_CI")
-        print(os.environ['CI_DB_HOST']," is the host")
+        print(os.environ.get['CI_DB_HOST']," is the host")
         time.sleep(5)
         assert 200 == 200
 
