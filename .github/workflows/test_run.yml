@@ -72,7 +72,7 @@ jobs:
 
     - name: Run Tests
       uses: docker://abhi22ray/foodhub
-      env:
+      env: |
         IN_DOCKER_CONTAINER=true
         IN_CI_ENV=true
         CI_DB_NAME=tests
