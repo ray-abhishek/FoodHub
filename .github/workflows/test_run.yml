@@ -69,10 +69,6 @@ jobs:
       run: |
         ls -al /tmp/.buildx-cache/
 
-    - name: Contents of index.json
-      run: |
-        nano /tmp/.buildx-cache/index.json
-
     - name: Build and Push
       id: docker_build
       uses: docker/build-push-action@v2
