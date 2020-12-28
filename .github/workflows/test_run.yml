@@ -44,11 +44,6 @@ jobs:
 
     steps:
 
-    - name: Verify MySQL connection from host
-      run: |
-        sudo apt-get install -y mysql-client
-        mysql -uroot -ppassword -e "SHOW DATABASES"
-
     - uses: actions/checkout@v2
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
