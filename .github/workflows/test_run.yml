@@ -2,9 +2,9 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ codecov ]
   pull_request:
-    branches: [ master ]
+    branches: [ codecov ]
 
 jobs:
   build_codex:
@@ -89,4 +89,7 @@ jobs:
       uses: docker://abhi22ray/foodhub
       with:
         entrypoint: pytest
-        args: -s -vvv
+        args: -s -vvv --cov-report xml
+    
+    - name: upload coverage report to codecov
+      run: bash <(curl -s https://codecov.io/bash)
