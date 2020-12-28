@@ -8,6 +8,11 @@ on:
 
 jobs:
   build_codex:
+    container:
+      image: abhi22ray/foodhub:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
