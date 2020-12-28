@@ -95,5 +95,5 @@ jobs:
       uses: docker://abhi22ray/foodhub
       with:
         entrypoint: pytest
-        args: -s -vvv 
+        args: -s -vvv --cov foodhub/ --cov-report xml
     
