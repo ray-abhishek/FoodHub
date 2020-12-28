@@ -48,6 +48,10 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
+    - name: Check File 1
+      run: |
+        ls /tmp/
+
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
@@ -61,6 +65,10 @@ jobs:
         key: ${{ runner.os }}-buildx-${{ github.sha }}
         restore-keys: ${{ runner.os }}-buildx-
 
+    - name: Check File 2
+      run: |
+        ls /tmp/.buildx-cache/api/
+
     - name: Build and Push
       id: docker_build
       uses: docker/build-push-action@v2
@@ -72,6 +80,10 @@ jobs:
         tags:  abhi22ray/foodhub:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+
+    - name: Check File 3
+      run: |
+        ls /tmp/.buildx-cache/api/
 
     - name: Run Test
       uses: docker://abhi22ray/foodhub
