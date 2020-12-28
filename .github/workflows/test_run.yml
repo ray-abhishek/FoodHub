@@ -95,4 +95,3 @@ jobs:
       
     - name: upload coverage report to codecov
       run: bash <(curl -s https://codecov.io/bash)
-
