@@ -84,8 +84,8 @@ jobs:
     - name: Install Requirements
       uses: docker://abhi22ray/foodhub
       with: 
-        entrypoint: pip
-        args: install -r test_requirements.txt
+        entrypoint: pip3
+        args: install -r foodhub/test_requirements.txt
 
     - name: Check File 3 f
       run: |
