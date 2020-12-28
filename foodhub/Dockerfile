@@ -15,7 +15,8 @@ RUN make install
 
 WORKDIR /server
 COPY foodhub/requirements.txt /server/
-RUN pip3 install -r ./requirements.txt
+COPY foodhub/test_requirements.txt /server/
+RUN pip3 install -r ./test_requirements.txt
 COPY . /server/
 
 
