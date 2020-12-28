@@ -83,7 +83,7 @@ jobs:
 
     - name: Check File 
       run: |
-        ls /tmp/.buildx-cache/api/
+        ls -al /tmp/.buildx-cache/
 
     - name: Run Test
       uses: docker://abhi22ray/foodhub
