@@ -80,6 +80,12 @@ jobs:
         tags:  abhi22ray/foodhub:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+        
+    - name: Install Requirements
+      uses: docker://abhi22ray/foodhub
+      with: 
+        entrypoint: pip
+        args: install -r test_requirements.txt
 
     - name: Check File 3 f
       run: |
