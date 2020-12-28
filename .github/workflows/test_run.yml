@@ -14,8 +14,6 @@ jobs:
       matrix:
         python-version: [3.6.9]
     env:
-      IN_DOCKER_CONTAINER: true
-      ENV_IS_CI: true
       CI_DB_NAME: tests
       CI_DB_USER: root
       CI_DB_PASS: password
@@ -81,14 +79,5 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
         
-    - name: Install Requirements
-      uses: docker://abhi22ray/foodhub
-      with: 
-        entrypoint: pip3
-        args: install -r foodhub/test_requirements.txt
-
-    - name: Check File 3 f
-      run: |
-        ls -al /tmp/.buildx-cache/
-
+    
  
