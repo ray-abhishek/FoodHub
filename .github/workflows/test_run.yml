@@ -86,13 +86,16 @@ jobs:
     - name: Check File 3 f
       run: |
         ls -al /tmp/.buildx-cache/
-
+    
+    - name: list all dependency
+      uses: docker://abhi22ray/foodhub
+      with:
+        entrypoint: pip3
+        args: freeze 
+    
     - name: Run Test
       uses: docker://abhi22ray/foodhub
       with:
         entrypoint: pytest
         args: -s -vvv 
       
-    - name: upload coverage report to codecov
-      run: bash <(curl -s https://codecov.io/bash)
-
