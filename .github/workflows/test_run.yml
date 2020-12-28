@@ -73,7 +73,7 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
 
-    - name: Run Tests
+    - name: Run Test
       uses: docker://abhi22ray/foodhub
       with:
         entrypoint: pytest
