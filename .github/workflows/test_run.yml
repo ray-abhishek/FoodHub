@@ -50,7 +50,11 @@ jobs:
 
     - name: Check File 1
       run: |
-        ls /tmp/
+        ls -al /tmp/
+
+    - name: Check File 1.5
+      run: |
+        ls -al /tmp/.buildx-cache/
 
     - name: Login to DockerHub
       uses: docker/login-action@v1 
@@ -81,7 +85,7 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
 
-    - name: Check File 
+    - name: Check File 3
       run: |
         ls -al /tmp/.buildx-cache/
 
