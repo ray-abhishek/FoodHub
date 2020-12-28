@@ -8,11 +8,6 @@ on:
 
 jobs:
   build_codex:
-    container:
-      image: abhi22ray/foodhub:latest
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
@@ -27,6 +22,11 @@ jobs:
       CI_DB_HOST: mysql
       CI_DB_PORT: 3306 
 
+    container:
+      image: abhi22ray/foodhub:latest
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     services:
       mysql:
         image: mysql:5.7
