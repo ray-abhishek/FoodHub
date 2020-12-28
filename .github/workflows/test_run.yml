@@ -90,5 +90,7 @@ jobs:
       uses: docker://abhi22ray/foodhub
       with:
         entrypoint: pytest
-        args: -s -vvv --cov-report xml
-    
+        args: -s -vvv 
+      
+    - name: upload coverage report to codecov
+      run: bash <(curl -s https://codecov.io/bash)
