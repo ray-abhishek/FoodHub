@@ -18,7 +18,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
   build_codex:
-    runs-on: ubuntu-latest login
+    needs: login
+    runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
       matrix:
