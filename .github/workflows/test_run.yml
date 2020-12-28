@@ -5,16 +5,26 @@ on:
     branches: [ codecov ]
   pull_request:
     branches: [ codecov ]
-
+    
 jobs:
-  build_codex:
+  login:
     runs-on: ubuntu-latest
+    steps:
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+  build_codex:
+    runs-on: ubuntu-latest login
     strategy:
       max-parallel: 2
       matrix:
         python-version: [3.6.9]
     env:
-      IN_DOCKER_CONTAINER: false
+      IN_DOCKER_CONTAINER: true
       ENV_IS_CI: true
       CI_DB_NAME: tests
       CI_DB_USER: root
@@ -22,11 +32,6 @@ jobs:
       CI_DB_HOST: mysql
       CI_DB_PORT: 3306 
 
-    container:
-      image: abhi22ray/foodhub:latest
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
     services:
       mysql:
         image: mysql:5.7
