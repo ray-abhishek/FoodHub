@@ -14,12 +14,6 @@ jobs:
       matrix:
         python-version: [3.6.9]
     
-    container:
-      image: abhi22ray/foodhub:latest
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
     env:
       IN_DOCKER_CONTAINER: true
       ENV_IS_CI: true
@@ -65,9 +59,6 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Pull image from DockerHub
-      run: docker pull abhi22ray/foodhub:latest
-
     - name: Cache Docker layers
       uses: actions/cache@v2
       with:
