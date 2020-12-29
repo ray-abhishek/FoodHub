@@ -2,7 +2,7 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ master, try5 ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
