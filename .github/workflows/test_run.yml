@@ -1,10 +1,8 @@
 name: Codex CI Build
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ beta ]
 
 jobs:
   build_codex:
@@ -78,9 +76,3 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
 
-   
-    - name: Run Test
-      uses: docker://abhi22ray/foodhub
-      with:
-        entrypoint: pytest
-        args: -s -vvv
