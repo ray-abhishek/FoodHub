@@ -2,7 +2,7 @@
 
 <hr>
 
-### App Home Page ( GET `/` )
+### App Home Pagess ( GET `/` )
 
 #### RESPONSE
 
