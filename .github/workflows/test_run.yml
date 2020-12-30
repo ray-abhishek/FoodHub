@@ -2,7 +2,7 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ key3 ]
   pull_request:
     branches: [ beta ]
 
@@ -62,7 +62,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        key: ${{ runner.os }}-buildx-${{ hashFiles('**/requirements.txt') }}
         restore-keys: ${{ runner.os }}-buildx-
 
    
@@ -79,8 +79,3 @@ jobs:
         cache-to: type=local,dest=/tmp/.buildx-cache
 
    
-    - name: Run Test
-      uses: docker://abhi22ray/foodhub
-      with:
-        entrypoint: pytest
-        args: -s -vvv
