@@ -4,7 +4,7 @@ on:
   push:
     branches: [ key1 ]
   pull_request:
-    branches: [ beta ]
+    branches: [ beta, key1 ]
 
 jobs:
   build_codex:
