@@ -77,6 +77,12 @@ jobs:
         tags:  abhi22ray/foodhub2:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+    
+    - name: Pip List
+      uses: docker://abhi22ray/foodhub2
+      with:
+        entrypoint: pip
+        args: freeze
 
     - name: Run Test
       uses: docker://abhi22ray/foodhub2
