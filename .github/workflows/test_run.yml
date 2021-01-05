@@ -19,7 +19,7 @@ jobs:
       matrix:
         python-version: [3.6.9]
     env:
-      IN_DOCKER_CONTAINER: true
+      IN_DOCKER_CONTAINER: false
       ENV_IS_CI: true
       CI_DB_NAME: tests
       CI_DB_USER: root
@@ -82,8 +82,3 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
     
-    - name: Run Test
-      uses: docker://abhi22ray/foodhub2
-      with:
-        entrypoint: pytest
-        args: -s -vvv 
