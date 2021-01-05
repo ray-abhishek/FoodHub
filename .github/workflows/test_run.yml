@@ -81,7 +81,7 @@ jobs:
     - name: Pip List
       uses: docker://abhi22ray/foodhub2
       with:
-        entrypoint: pip
+        entrypoint: pip3
         args: freeze
 
     - name: Run Test
