@@ -90,6 +90,12 @@ jobs:
         entrypoint: pytest
         args: -s --no-migrations -vvv --cov foodhub --cov-report xml
         
-    - name: upload coverage report to codecov
-      run: bash <(curl -s https://codecov.io/bash)
+
+    - uses: actions/checkout@master
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        name: codecov-umbrella # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
 
