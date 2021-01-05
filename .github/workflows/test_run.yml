@@ -84,5 +84,12 @@ jobs:
         entrypoint: pip3
         args: freeze
 
-
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub2
+      with:
+        entrypoint: pytest
+        args: -s --no-migrations -vvv --cov foodhub --cov-report xml
+        
+    - name: upload coverage report to codecov
+      run: bash <(curl -s https://codecov.io/bash)
 
