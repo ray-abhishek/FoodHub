@@ -62,8 +62,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: ${{ runner.os }}-buildx-
+        key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: ${{ runner.os }}-buildx1-
 
    
     - name: Build and Pushhh
