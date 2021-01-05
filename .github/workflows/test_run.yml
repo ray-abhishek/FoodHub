@@ -75,5 +75,5 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags:  abhi22ray/foodhub2:latest
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+        cache-from: type=local,src=/tmp1/.buildx-cache
+        cache-to: type=local,dest=/tmp1/.buildx-cache
