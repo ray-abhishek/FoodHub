@@ -62,8 +62,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: ${{ runner.os }}-buildx-
+        key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: ${{ runner.os }}-buildx1-
 
    
     - name: Build and Pushhh
@@ -75,6 +75,8 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags:  abhi22ray/foodhub2:latest
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+        cache-from: type=local,src=/tmp/.buildx1-cache
+        cache-to: type=local,dest=/tmp/.buildx1-cache
+
+
 
