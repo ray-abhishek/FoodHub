@@ -62,7 +62,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        key: ${{ runner.os }}-buildx-${{ hashFiles('**/requirements.txt') }}
         restore-keys: ${{ runner.os }}-buildx-
 
    
@@ -77,3 +77,4 @@ jobs:
         tags:  abhi22ray/foodhub2:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+
