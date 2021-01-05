@@ -14,7 +14,7 @@ jobs:
       matrix:
         python-version: [3.6.9]
     env:
-      IN_DOCKER_CONTAINER: false
+      IN_DOCKER_CONTAINER: true
       ENV_IS_CI: true
       CI_DB_NAME: tests
       CI_DB_USER: root
@@ -74,9 +74,16 @@ jobs:
         file: foodhub/Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
-        tags:  abhi22ray/foodhub2
+        tags:  abhi22ray/foodhub2:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
 
-
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub2
+      with:
+        entrypoint: pytest
+        args: -s --no-migrations -vvv --cov foodhub --cov-report xml
+        
+    - name: upload coverage report to codecov
+      run: bash <(curl -s https://codecov.io/bash)
 
