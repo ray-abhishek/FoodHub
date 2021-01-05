@@ -1,7 +1,6 @@
 ## API Reference
 
 
-
 <hr>
 
 ### App Home Page ( GET `/` )
