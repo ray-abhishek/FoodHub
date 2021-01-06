@@ -62,7 +62,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx1-cache
-        key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}
+        key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/Dockerfile') }}
         restore-keys: ${{ runner.os }}-buildx1-
 
    
