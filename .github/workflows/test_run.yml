@@ -86,7 +86,6 @@ jobs:
     
     
     - name: Run Test
-      uses: docker://abhi22ray/foodhub
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
