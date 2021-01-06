@@ -10,7 +10,7 @@ jobs:
   build_codex:
     runs-on: ubuntu-latest
     container: 
-      image: ubuntu-latest
+      image: abhi22ray/foodhub2
       credentials:
         username: abhi22ray
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
