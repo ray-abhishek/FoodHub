@@ -118,8 +118,6 @@ jobs:
    
    steps: 
    - uses: actions/checkout@v2
-     with:
-       fetch-depth: 0
    
    - name: Download xml from job2
      uses: actions/download-artifact@v2
@@ -132,5 +130,4 @@ jobs:
        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
        name: codecov-umbrella # optional
        fail_ci_if_error: true # optional (default = false)
-       verbose: true
         
