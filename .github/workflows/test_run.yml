@@ -111,6 +111,7 @@ jobs:
        python-version: [3.6.9]
    
    steps: 
+   - uses: actions/checkout@v2
    - name: generating cov
      uses: codecov/codecov-action@v1
      with:
