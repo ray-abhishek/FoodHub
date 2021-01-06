@@ -67,6 +67,6 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags:  abhi22ray/foodhub2:latest
-        cache-from: type=registry,ref=user/app:latest
+        cache-from: type=registry,ref=abhi22ray/foodhub2:latest
         cache-to: type=inline
 
