@@ -2,7 +2,7 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ rayc1 ]
   pull_request:
     branches: [ beta ]
 
@@ -10,17 +10,9 @@ jobs:
   build_codex:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+      max-parallel: 2
       matrix:
-        python-version: [3.6.9]
-    env:
-      IN_DOCKER_CONTAINER: true
-      ENV_IS_CI: true
-      CI_DB_NAME: tests
-      CI_DB_USER: root
-      CI_DB_PASS: password
-      CI_DB_HOST: mysql
-      CI_DB_PORT: 3306 
+        python-version: [3.6.9] 
 
     steps:
 
@@ -31,7 +23,6 @@ jobs:
     - name: Check File 1
       run: |
         ls /usr/bin/
-
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
@@ -41,11 +32,9 @@ jobs:
     - name: Cache Docker layers
       uses: actions/cache@v2
       with:
-
         path: /tmp/.buildy-cache
         key: ${{ runner.os }}-buildy-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/Dockerfile') }}
         restore-keys: ${{ runner.os }}-buildy-
-
    
     - name: Build and Pushhh
       id: docker_build
@@ -85,7 +74,6 @@ jobs:
         - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-
       rabbitmq:
         image: rabbitmq:3.8.9
         env:
@@ -105,4 +93,10 @@ jobs:
     - name: Run Test inside Container
       run: pytest -s -vvv --cov foodhub/ --cov-report xml
       
-   
+    - name: generating cov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        name: codecov-ray # optional
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true
