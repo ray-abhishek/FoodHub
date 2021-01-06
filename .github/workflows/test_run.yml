@@ -42,12 +42,6 @@ jobs:
         options: -e RABBITMQ_ERLANG_COOKIE="COOKIE" -e RABBITMQ_DEFAULT_USER="urbanpiper" -e RABBITMQ_DEFAULT_PASS="urbanpiper" -e RABBITMQ_DEFAULT_VHOST="uphost"
           --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
     
-    container: 
-      image: abhi22ray/foodhub2:latest
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
     steps:
 
     - uses: actions/checkout@v2
