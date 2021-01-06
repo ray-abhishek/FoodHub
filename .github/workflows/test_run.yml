@@ -28,8 +28,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
-      with:
-        driver: docker
 
     - name: Check File 1
       run: |
@@ -59,6 +57,12 @@ jobs:
         tags:  abhi22ray/foodhub:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache  
+        
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub
+      with:
+        entrypoint: pytest
+        args: -s -vvv  
         
     strategy:
       max-parallel: 2
