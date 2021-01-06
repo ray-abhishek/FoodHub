@@ -69,4 +69,9 @@ jobs:
         tags:  abhi22ray/foodhub2:latest
         cache-from: type=registry,ref=abhi22ray/foodhub2:latest
         cache-to: type=inline
-
+    
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub2
+      with:
+        entrypoint: pytest
+        args: -s -vvv 
