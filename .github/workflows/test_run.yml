@@ -10,7 +10,7 @@ jobs:
   build_codex:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
+      max-parallel: 1
       matrix:
         python-version: [3.6.9]
     env:
@@ -22,6 +22,60 @@ jobs:
       CI_DB_HOST: mysql
       CI_DB_PORT: 3306 
 
+    steps:
+
+    - uses: actions/checkout@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Check File 1
+      run: |
+        ls /usr/bin/
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+
+        path: /tmp/.buildy-cache
+        key: ${{ runner.os }}-buildy-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/Dockerfile') }}
+        restore-keys: ${{ runner.os }}-buildy-
+
+   
+    - name: Build and Pushhh
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: foodhub/Dockerfile
+        builder: ${{ steps.buildx.outputs.name }}
+        push: true
+        tags:  abhi22ray/foodhub:latest
+        cache-from: type=local,src=/tmp/.buildy-cache
+        cache-to: type=local,dest=/tmp/.buildy-cache
+        
+  test_codex:
+    needs: [build_codex]
+    runs-on: ubuntu-latest
+    container:
+      image: abhi22ray/foodhub
+      credentials:
+        username: abhi22ray
+        password: ${{ secrets.DOCKERHUB_PASSWORD}}
+      env:
+        IN_DOCKER_CONTAINER: true
+        ENV_IS_CI: true
+        CI_DB_NAME: tests
+        CI_DB_USER: root
+        CI_DB_PASS: password
+        CI_DB_HOST: mysql
+        CI_DB_PORT: 3306
+      
     services:
       mysql:
         image: mysql:5.7
@@ -30,6 +84,7 @@ jobs:
         ports:
         - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
 
       rabbitmq:
         image: rabbitmq:3.8.9
@@ -43,45 +98,11 @@ jobs:
           --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
     
     steps:
-
     - uses: actions/checkout@v2
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-
-    - name: Check File 1
-      run: |
-        ls -al /tmp/
-
-    - name: Login to DockerHub
-      uses: docker/login-action@v1 
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Cache Docker layers
-      uses: actions/cache@v2
-      with:
-        path: /tmp/.buildx1-cache
-        key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: ${{ runner.os }}-buildx1-
-
+    - name: List Directory
+      run: ls
+      
+    - name: Run Test inside Container
+      run: pytest -s -vvv --cov foodhub/ --cov-report xml
+      
    
-    - name: Build and Pushhh
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        file: foodhub/Dockerfile
-        builder: ${{ steps.buildx.outputs.name }}
-        push: true
-        tags:  abhi22ray/foodhub2:latest
-        cache-from: type=local,src=/tmp/.buildx1-cache
-        cache-to: type=local,dest=/tmp/.buildx1-cache
-    
-    - name: Run Test
-      uses: docker://abhi22ray/foodhub2
-      with:
-        entrypoint: pytest
-        args: -s -vvv 
-
-
