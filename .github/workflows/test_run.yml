@@ -117,7 +117,6 @@ jobs:
        python-version: [3.6.9]
    
    steps: 
-   - uses: actions/checkout@v2
    
    - name: Download xml from job2
      uses: actions/download-artifact@v2
