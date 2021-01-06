@@ -9,6 +9,11 @@ on:
 jobs:
   build_codex:
     runs-on: ubuntu-latest
+    container: 
+      image: ubuntu-latest
+      credentials:
+        username: abhi22ray
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
     strategy:
       max-parallel: 2
       matrix:
