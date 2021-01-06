@@ -2,7 +2,7 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ rayp1 ]
+    branches: [ ap2 ]
   pull_request:
     branches: [ beta ]
 
@@ -84,4 +84,11 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
     
-
+    
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        entrypoint: pytest
+        args: -s -vvv 
