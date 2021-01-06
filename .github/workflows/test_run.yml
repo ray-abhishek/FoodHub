@@ -60,7 +60,20 @@ jobs:
   test_codex:
     needs: [build_codex]
     runs-on: ubuntu-latest
-    
+    container:
+      image: abhi22ray/foodhub
+      credentials:
+        username: abhi22ray
+        password: ${{ secrets.DOCKERHUB_PASSWORD}}
+      env:
+        IN_DOCKER_CONTAINER: true
+        ENV_IS_CI: true
+        CI_DB_NAME: tests
+        CI_DB_USER: root
+        CI_DB_PASS: password
+        CI_DB_HOST: mysql
+        CI_DB_PORT: 3306
+      
     services:
       mysql:
         image: mysql:5.7
