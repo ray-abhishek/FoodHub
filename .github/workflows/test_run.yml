@@ -76,4 +76,12 @@ jobs:
         tags:  abhi22ray/foodhub:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+        
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub
+      with:
+        entrypoint: pytest
+        args: -s -vvv 
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
  
