@@ -101,15 +101,36 @@ jobs:
       
     - name: Run Test inside Container
       run: pytest -s -vvv --cov foodhub/ --cov-report xml
-    - name: exit container
-      run: exit
     
-    - name: generating cov
-      uses: codecov/codecov-action@v1
+    - name: Upload xml
+      uses: actions/upload-artifact@v2
       with:
-        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        name: codecov-umbrella # optional
-        fail_ci_if_error: true # optional (default = false)
-        verbose: true  
+        name: myxml
+        path: coverage.xml
     
- 
+  cov_codex:
+   needs: [test_codex]
+   runs-on: ubuntu-latest
+   strategy:
+     max-parallel: 2
+     matrix:
+       python-version: [3.6.9]
+   
+   steps: 
+   - uses: actions/checkout@v2
+     with:
+       fetch-depth: 0
+   
+   - name: Download xml from job2
+     uses: actions/download-artifact@v2
+     with:
+       name: myxml
+   
+   - name: generating cov
+     uses: codecov/codecov-action@v1
+     with:
+       token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+       name: codecov-umbrella # optional
+       fail_ci_if_error: true # optional (default = false)
+       verbose: true
+        
