@@ -10,7 +10,7 @@ jobs:
   build_codex:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         python-version: [3.6.9]
     env:
@@ -41,11 +41,9 @@ jobs:
     - name: Cache Docker layers
       uses: actions/cache@v2
       with:
-
         path: /tmp/.buildy-cache
         key: ${{ runner.os }}-buildy-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/Dockerfile') }}
         restore-keys: ${{ runner.os }}-buildy-
-
    
     - name: Build and Pushhh
       id: docker_build
@@ -85,7 +83,6 @@ jobs:
         - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-
       rabbitmq:
         image: rabbitmq:3.8.9
         env:
@@ -105,4 +102,19 @@ jobs:
     - name: Run Test inside Container
       run: pytest -s -vvv --cov foodhub/ --cov-report xml
       
+  cov_codex:
+   needs: [test_codex]
+   runs-on: ubuntu-latest
+   strategy:
+     max-parallel: 2
+     matrix:
+       python-version: [3.6.9]
    
+   steps: 
+   - name: generating cov
+     uses: codecov/codecov-action@v1
+     with:
+       token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+       name: codecov-umbrella # optional
+       fail_ci_if_error: true # optional (default = false)
+        
