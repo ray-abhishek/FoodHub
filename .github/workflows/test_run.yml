@@ -30,10 +30,7 @@ jobs:
 
     - name: Check File 1
       run: |
-        ls -al /tmp/
         ls /usr/bin/
-
-
     
     - name: Cache Docker layers
       uses: actions/cache@v2
@@ -41,6 +38,12 @@ jobs:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}
         restore-keys: ${{ runner.os }}-buildx1-
+        
+    - name: Run Test
+      uses: docker://abhi22ray/foodhub
+      with:
+        entrypoint: pytest
+        args: -s -vvv   
         
     strategy:
       max-parallel: 2
