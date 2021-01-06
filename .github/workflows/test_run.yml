@@ -61,7 +61,7 @@ jobs:
     - name: Cache Docker layers
       uses: actions/cache@v2
       with:
-        path: /tmp/.buildx1-cache
+        path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/Dockerfile') }}
         restore-keys: ${{ runner.os }}-buildx1-
 
@@ -75,8 +75,8 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags:  abhi22ray/foodhub2:latest
-        cache-from: type=local,src=/tmp/.buildx1-cache
-        cache-to: type=local,dest=/tmp/.buildx1-cache
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
     
     - name: Run Test
       uses: docker://abhi22ray/foodhub2
