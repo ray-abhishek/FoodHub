@@ -58,6 +58,7 @@ jobs:
         cache-to: type=local,dest=/tmp/.buildx-cache
         
   test_codex:
+    needs: [build_codex]
     runs-on: ubuntu-latest
     container:
       image: abhi22ray/foodhub
@@ -94,6 +95,9 @@ jobs:
           --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
     
     steps:
+    - name: List Directory
+      run: ls
+      
     - name: Run Test inside Container
       run: pytest -s -vvv
  
