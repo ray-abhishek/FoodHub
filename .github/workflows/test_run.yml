@@ -7,20 +7,27 @@ on:
     branches: [ beta ]
 
 jobs:
-  build_codex:
+  build:
     runs-on: ubuntu-latest
+    container: 
+      image: abhi22ray/foodhub
+      credentials:
+        username: abhi22ray
+        password: ${{ secrets.DOCKERHUB_PASSWORD}}
+      env:
+        IN_DOCKER_CONTAINER: true
+        ENV_IS_CI: true
+        CI_DB_NAME: tests
+        CI_DB_USER: root
+        CI_DB_PASS: password
+        CI_DB_HOST: mysql
+        CI_DB_PORT: 3306
+        
     strategy:
       max-parallel: 2
       matrix:
         python-version: [3.6.9]
-    env:
-      IN_DOCKER_CONTAINER: true
-      ENV_IS_CI: true
-      CI_DB_NAME: tests
-      CI_DB_USER: root
-      CI_DB_PASS: password
-      CI_DB_HOST: mysql
-      CI_DB_PORT: 3306 
+     
 
     services:
       mysql:
@@ -57,6 +64,13 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx1-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: ${{ runner.os }}-buildx1-
    
     - name: Build and Pushhh
       id: docker_build
