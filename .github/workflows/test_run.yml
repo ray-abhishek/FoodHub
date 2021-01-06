@@ -86,7 +86,7 @@ jobs:
     
     
     - name: Run Test
-      uses: docker/login-action@v1
+      uses: container
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
