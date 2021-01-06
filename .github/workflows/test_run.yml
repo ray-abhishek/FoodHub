@@ -14,38 +14,14 @@ jobs:
       credentials:
         username: abhi22ray
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    strategy:
-      max-parallel: 2
-      matrix:
-        python-version: [3.6.9]
-    env:
-      IN_DOCKER_CONTAINER: false
-      ENV_IS_CI: true
-      CI_DB_NAME: tests
-      CI_DB_USER: root
-      CI_DB_PASS: password
-      CI_DB_HOST: mysql
-      CI_DB_PORT: 3306 
-
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: password
-        ports:
-        - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      rabbitmq:
-        image: rabbitmq:3.8.9
-        env:
-          RABBITMQ_DEFAULT_USER: urbanpiper
-          RABBITMQ_DEFAULT_PASS: urbanpiper
-          RABBITMQ_DEFAULT_VHOST: uphost
-        ports:
-        - 5672:5672
-        options: -e RABBITMQ_ERLANG_COOKIE="COOKIE" -e RABBITMQ_DEFAULT_USER="urbanpiper" -e RABBITMQ_DEFAULT_PASS="urbanpiper" -e RABBITMQ_DEFAULT_VHOST="uphost"
-          --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
+      env:
+        IN_DOCKER_CONTAINER: false
+        ENV_IS_CI: true
+        CI_DB_NAME: tests
+        CI_DB_USER: root
+        CI_DB_PASS: password
+        CI_DB_HOST: mysql
+        CI_DB_PORT: 3306
 
     steps:
 
@@ -82,5 +58,33 @@ jobs:
         tags:  abhi22ray/foodhub2:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+    
+    strategy:
+      max-parallel: 2
+      matrix:
+        python-version: [3.6.9]
+     
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+        - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      rabbitmq:
+        image: rabbitmq:3.8.9
+        env:
+          RABBITMQ_DEFAULT_USER: urbanpiper
+          RABBITMQ_DEFAULT_PASS: urbanpiper
+          RABBITMQ_DEFAULT_VHOST: uphost
+        ports:
+        - 5672:5672
+        options: -e RABBITMQ_ERLANG_COOKIE="COOKIE" -e RABBITMQ_DEFAULT_USER="urbanpiper" -e RABBITMQ_DEFAULT_PASS="urbanpiper" -e RABBITMQ_DEFAULT_VHOST="uphost"
+          --health-cmd "rabbitmqctl node_health_check" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    
     
 
