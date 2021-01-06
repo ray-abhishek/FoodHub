@@ -2,7 +2,7 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ beta ]
+    branches: [ rayp1 ]
   pull_request:
     branches: [ beta ]
 
@@ -66,12 +66,8 @@ jobs:
         file: foodhub/Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
         push: true
-        tags:  abhi22ray/foodhub2:latest
-        cache-from: type=registry,ref=abhi22ray/foodhub2:latest
-        cache-to: type=inline
+        tags:  abhi22ray/foodhub:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
     
-    - name: Run Test
-      uses: docker://abhi22ray/foodhub2
-      with:
-        entrypoint: pytest
-        args: -s -vvv 
+
