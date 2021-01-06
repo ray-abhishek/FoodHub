@@ -2,7 +2,7 @@ name: Codex CI Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ beta ]
   pull_request:
     branches: [ beta ]
 
@@ -57,14 +57,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Cache Docker layers
-      uses: actions/cache@v2
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: ${{ runner.os }}-buildx-
-
    
     - name: Build and Pushhh
       id: docker_build
@@ -75,6 +67,6 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         push: true
         tags:  abhi22ray/foodhub2:latest
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+        cache-from: type=registry,ref=user/app:latest
+        cache-to: type=inline
 
