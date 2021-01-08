@@ -32,7 +32,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildy-cache
-        key: ${{ runner.os }}-buildy-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/Dockerfile') }}
+        key: ${{ runner.os }}-${{ hashFiles('**/Dockerfile') }}
         restore-keys: ${{ runner.os }}-buildy-
    
     - name: Build and Pushhh
