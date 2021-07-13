@@ -137,6 +137,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         response = {"message": "Order is being placed"}
         return Response(response, status=status.HTTP_201_CREATED,
                         headers=headers)
+        return Response(response, status=status.HTTP_201_CREATED,
+                        headers=headers)
 
 class CustomPagination(LimitOffsetPagination):
     default_limit = 10
@@ -156,6 +158,7 @@ class CustomPagination(LimitOffsetPagination):
 
         if self.count == 0 or self.offset > self.count:
             return []
+            return 0
         return list(queryset[self.offset : self.limit])
 
     def get_next_link(self):
